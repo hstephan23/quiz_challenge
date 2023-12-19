@@ -3,6 +3,15 @@ let time = 100;
 let questionCount = 1;
 let score = 0;
 
+//The high score list
+let highScores = {"HS": 10,
+    "AS": 0,
+    "IS": 0,
+    "MS": 9,
+    "TS": 5,
+    "ES": 4
+};
+
 // various variables for elements or classes to be selected
 const startButton = document.getElementById("start");
 const answers = document.getElementsByClassName("item");
@@ -54,7 +63,8 @@ if (answers !== null) {
 if (submit !== null) {
     submit.addEventListener("click", function (event) {
         event.preventDefault();
-        addToScoreBoard();
+        addToScoreBoard("initials");
+        sorting();
     })
 };
 
@@ -83,29 +93,17 @@ function inputInitials(finalID) {
     input.style.display = "inline";
 };
 
+function sorting() {
+    const sort = Object.fromEntries(
+    Object.entries(highScores).sort(([, score1], [, score2]) => score2 - score1)  
+    );
+    console.log(sort);
+}
+
 //arrow functions
-const addToScoreBoard = () => {
-    fetch("./scores.json")
-        .then(response => response.json())
-        .then(data => {
-            let newScores = {}
-            console.log(data);
-            for (let i = 0; i < data["Scores"].length; i++){
-                console.log(data["Scores"][i]["total"]);
-                if (i !== 0) {
-                    if (data["Scores"][i]["total"] > data["Scores"][i - 1]["total"]){
-                        console.log("done");
-                        const old = data["Scores"][i-1];
-                        const update = data["Scores"][i];
-                        data["Scores"][i-1] = update;
-                        data["Scores"][i] = old; 
-                    } else {
-                        console.log("not done");
-                    }
-                } else {
-                    console.log("skip")
-                } 
-            }
-        })
-        .catch(error => console.error("Error fetching JSON", error));
-};
+const addToScoreBoard = (inputID) => {
+    const input = document.getElementById(inputID).value;
+    console.log(input);
+    highScores[input] = score;
+    console.log(highScores);
+ };
