@@ -89,6 +89,8 @@ const addToScoreBoard = () => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            const sorted = data.scores.total.sort();
+            console.log(sorted);
         })
         .catch(error => console.error("Error fetching JSON", error));
 };
