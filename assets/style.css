@@ -4,18 +4,8 @@
 }
 
 header {
-    display: grid;
-    grid-template-areas: 
-        high-score timer;
-}
-
-#high-score {
-    grid-area: high-score;
-}
-
-#timer {
-    grid-area: timer;
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
 }
 
 #menu {
