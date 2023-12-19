@@ -17,6 +17,18 @@ a {
     text-align: center;
 }
 
+#high-score {
+    padding-left: 2%;
+}
+
+#timer {
+    padding-right: 2%;
+}
+
+#high-score:hover {
+    color: rgb(182, 8, 182);
+}
+
 .full-question {
     display: none;
     text-align: center;
@@ -66,5 +78,19 @@ a {
 }
 
 .navigation:hover {
+    background-color: rgb(182, 8, 182);
+}
+
+.submit {
+    display: inline;
+    text-align: center;
+    width: 20%;
+    padding: 1%;
+    background-color: rgb(58, 3, 167);
+    color: white;
+    border-radius: 10px;
+}
+
+.submit:hover {
     background-color: rgb(182, 8, 182);
 }
