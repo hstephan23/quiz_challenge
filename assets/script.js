@@ -12,6 +12,11 @@ let highScores = {"HS": 10,
     "ES": 4
 };
 
+//sorted object
+const sort = Object.fromEntries(
+    Object.entries(highScores).sort(([, score1], [, score2]) => score2 - score1)  
+    );
+
 // various variables for elements or classes to be selected
 const startButton = document.getElementById("start");
 const answers = document.getElementsByClassName("item");
@@ -64,7 +69,6 @@ if (submit !== null) {
     submit.addEventListener("click", function (event) {
         event.preventDefault();
         addToScoreBoard("initials");
-        sorting();
     })
 };
 
@@ -93,13 +97,6 @@ function inputInitials(finalID) {
     input.style.display = "inline";
 };
 
-function sorting() {
-    const sort = Object.fromEntries(
-    Object.entries(highScores).sort(([, score1], [, score2]) => score2 - score1)  
-    );
-    console.log(sort);
-}
-
 //arrow functions
 const addToScoreBoard = (inputID) => {
     const input = document.getElementById(inputID).value;
@@ -107,3 +104,13 @@ const addToScoreBoard = (inputID) => {
     highScores[input] = score;
     console.log(highScores);
  };
+
+ const outputScoreboard = (scoredboardID) => {
+    const input = document.getElementById(scoredboardID);
+    for (const value in sort) {
+        const node = document.createElement("li");
+        const textnode = document.createTextNode(`${value} - ${sort[value]}`);
+        node.appendChild(textnode);
+        input.appendChild(node);
+    }
+ }

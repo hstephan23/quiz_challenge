@@ -8,9 +8,11 @@
     <link rel="stylesheet" type="text/css" href="./style.css">
     <script src="./script.js" defer></script>
 </head>
-<body>
+<body onload="outputScoreboard('scoreboard')">
     <main class="high-scores">
         <h1 id="title">High Scores</h1>
+        <ol id="scoreboard">
+        </ol>
         <form>
             <button class="navigation" id="goBack">Go Back</button>
             <button class="navigation">Reset Scores</button>
