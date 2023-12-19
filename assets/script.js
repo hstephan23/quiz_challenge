@@ -95,9 +95,15 @@ const addToScoreBoard = () => {
                 if (i !== 0) {
                     if (data["Scores"][i]["total"] > data["Scores"][i - 1]["total"]){
                         console.log("done");
+                        const old = data["Scores"][i-1];
+                        const update = data["Scores"][i];
+                        data["Scores"][i-1] = update;
+                        data["Scores"][i] = old; 
                     } else {
                         console.log("not done");
                     }
+                } else {
+                    console.log("skip")
                 } 
             }
         })
