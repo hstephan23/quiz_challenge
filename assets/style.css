@@ -17,12 +17,25 @@ header {
     grid-area: timer;
     text-align: right;
 }
-.menu {
+
+#menu {
     display: inline;
+    text-align: center;
 }
 
 .full-question {
     display: none;
     text-align: center;
+}
 
+.answers {
+    text-align: center;
+}
+
+.item,
+#start {
+    display: inline;
+    text-align: center;
+    width: 40%;
+    padding: 2.5%
 }

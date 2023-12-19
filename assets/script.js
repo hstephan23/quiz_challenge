@@ -7,23 +7,24 @@ let startButton = document.getElementById("start");
 let answers = document.getElementsByClassName("item");
 
 // various listener functions
-startButton.addEventListener("click", function () {
+startButton.addEventListener("click", function (event) {
+    event.preventDefault();
     menuDisappear("menu");
     startGame();
     questionAppear(questionCount);
 });
 
+//iterating over the array of classes
 for (let i = 0; i < answers.length; i++) {
-    answers[i].addEventListener("click", function () {
+    answers[i].addEventListener("click", function (event) {
+        questionDisappear(questionCount);
+        questionCount++
+        event.preventDefault();
         if (answers[i].value === "true") {
-            questionDisappaer(questionCount);
-            questionCount++; 
             score++;
             questionAppear(questionCount);
             console.log(score);
         } else {
-            questionDisappear(questionCount);
-            questionCount++;
             time = time - 5;
             questionAppear(questionCount);
         }
@@ -41,7 +42,7 @@ function questionAppear(id) {
     show.style.display = "inline";
 }
 
-function questionDisappaer(id) {
+function questionDisappear(id) {
     let disappear = document.getElementById(id);
     disappear.style.display = "none";
 }
