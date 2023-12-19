@@ -1,4 +1,4 @@
-#Create a timed quiz game, that keeps a score board as well
+# Create a timed quiz game, that keeps a score board as well
 
 GIVEN I am taking a code quiz
 WHEN I click the start button
