@@ -1,4 +1,4 @@
- //timer start amount
+//timer start amount
 let time = 100;
 let questionCount = 1;
 let score = 0;
@@ -51,11 +51,10 @@ if (answers !== null) {
     }
 };
 
-if (answers !== null) {
+if (submit !== null) {
     submit.addEventListener("click", function (event) {
         event.preventDefault();
         addToScoreBoard();
-        displayScoreBoard();
     })
 };
 
@@ -86,7 +85,12 @@ function inputInitials(finalID) {
 
 //arrow functions
 const addToScoreBoard = () => {
-    
+    fetch("scores.json")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.error("Error fetching JSON", error));
 };
 
 const displayScoreBoard = () => {
