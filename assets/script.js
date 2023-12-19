@@ -92,7 +92,3 @@ const addToScoreBoard = () => {
         })
         .catch(error => console.error("Error fetching JSON", error));
 };
-
-const displayScoreBoard = () => {
-    window.location.href ="./assets/scores.html";
-}
