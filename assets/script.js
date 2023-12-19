@@ -85,7 +85,7 @@ function inputInitials(finalID) {
 
 //arrow functions
 const addToScoreBoard = () => {
-    fetch("./scores.json")
+    fetch("./assets/scores.json")
         .then(response => response.json())
         .then(data => {
             console.log(data);
