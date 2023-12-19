@@ -20,13 +20,19 @@ for (let i = 0; i < answers.length; i++) {
         questionDisappear(questionCount);
         questionCount++
         event.preventDefault();
-        if (answers[i].value === "true") {
+        if (answers[i].value === "true" && questionCount <= 10) {
             score++;
             questionAppear(questionCount);
             console.log(score);
-        } else {
+        } else if (answers[i].value === "true" && questionCount > 10) {
+            score++;
+            inputInitials("scoreRecord");
+        } else if (answers[i].value === "false" && questionCount <= 10) {
             time = time - 5;
+            console.log(time);
             questionAppear(questionCount);
+        }else {
+            inputInitials("scoreRecord");
         }
     })
 }
@@ -49,4 +55,9 @@ function questionDisappear(id) {
 
 function startGame() {
     time = 100;
+}
+
+function inputInitials(finalID) {
+    let input = document.getElementById(finalID);
+    input.style.display = "inline";
 }

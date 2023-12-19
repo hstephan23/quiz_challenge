@@ -37,5 +37,18 @@ header {
     display: inline;
     text-align: center;
     width: 40%;
-    padding: 2.5%
+    padding: 2.5%;
+    background-color: rgb(58, 3, 167);
+    color: white;
+    border-radius: 10px;
+}
+
+.item:hover,
+#start:hover {
+    background-color: rgb(182, 8, 182);
+}
+
+#scoreRecord {
+    display: none;
+    text-align: center;
 }
