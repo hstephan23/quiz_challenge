@@ -88,11 +88,18 @@ const addToScoreBoard = () => {
     fetch("./scores.json")
         .then(response => response.json())
         .then(data => {
+            let newScores = {}
             console.log(data);
             for (let i = 0; i < data["Scores"].length; i++){
-                console.log(data["Scores"][i]);
+                console.log(data["Scores"][i]["total"]);
+                if (i !== 0) {
+                    if (data["Scores"][i]["total"] > data["Scores"][i - 1]["total"]){
+                        console.log("done");
+                    } else {
+                        console.log("not done");
+                    }
+                } 
             }
-            console.log(number);
         })
         .catch(error => console.error("Error fetching JSON", error));
 };
