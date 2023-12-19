@@ -8,6 +8,10 @@ header {
     justify-content: space-between;
 }
 
+a {
+    text-decoration: none;
+}
+
 #menu {
     display: inline;
     text-align: center;
@@ -41,4 +45,26 @@ header {
 #scoreRecord {
     display: none;
     text-align: center;
+}
+
+.high-scores {
+    text-align: center;
+}
+
+#title {
+    padding-top: 10%;
+}
+
+.navigation {
+    display: inline;
+    text-align: center;
+    width: 20%;
+    padding: 1%;
+    background-color: rgb(58, 3, 167);
+    color: white;
+    border-radius: 10px;
+}
+
+.navigation:hover {
+    background-color: rgb(182, 8, 182);
 }

@@ -2,39 +2,51 @@
 let time = 100;
 let questionCount = 1;
 let score = 0;
+
 // various variables for elements or classes to be selected
-let startButton = document.getElementById("start");
-let answers = document.getElementsByClassName("item");
+const startButton = document.getElementById("start");
+const answers = document.getElementsByClassName("item");
+const goBack = document.getElementById("goBack")
 
 // various listener functions
-startButton.addEventListener("click", function (event) {
-    event.preventDefault();
-    menuDisappear("menu");
-    startGame();
-    questionAppear(questionCount);
-});
+if (startButton !== null) {
+    startButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        menuDisappear("menu");
+        startGame();
+        questionAppear(questionCount);
+    });
+}
+
+if (goBack !== null) {
+    goBack.addEventListener("click", function() {
+       window.location.href = "../index.html";
+    });
+}
 
 //iterating over the array of classes
-for (let i = 0; i < answers.length; i++) {
-    answers[i].addEventListener("click", function (event) {
-        questionDisappear(questionCount);
-        questionCount++
-        event.preventDefault();
-        if (answers[i].value === "true" && questionCount <= 10) {
-            score++;
-            questionAppear(questionCount);
-            console.log(score);
-        } else if (answers[i].value === "true" && questionCount > 10) {
-            score++;
-            inputInitials("scoreRecord");
-        } else if (answers[i].value === "false" && questionCount <= 10) {
-            time = time - 5;
-            console.log(time);
-            questionAppear(questionCount);
-        }else {
-            inputInitials("scoreRecord");
-        }
-    })
+if (answers !== null) {
+    for (let i = 0; i < answers.length; i++) {
+        answers[i].addEventListener("click", function (event) {
+            questionDisappear(questionCount);
+            questionCount++
+            event.preventDefault();
+            if (answers[i].value === "true" && questionCount <= 10) {
+                score++;
+                questionAppear(questionCount);
+                console.log(score);
+            } else if (answers[i].value === "true" && questionCount > 10) {
+                score++;
+                inputInitials("scoreRecord");
+            } else if (answers[i].value === "false" && questionCount <= 10) {
+                time = time - 5;
+                console.log(time);
+                questionAppear(questionCount);
+            }else {
+                inputInitials("scoreRecord");
+            }
+        })
+    }
 }
 
 //functions
