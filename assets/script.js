@@ -1,8 +1,6 @@
-//to read and write in files
-
 //timer start amount
-let time = 5;
-let displayTime = 4;
+let time = 100;
+let displayTime = 99;
 let questionCount = 1;
 let score = 0;
 
@@ -15,16 +13,24 @@ let highScores = {"HS": 10,
     "ES": 4
 };
 
-//sorted object
-const sort = Object.fromEntries(
-    Object.entries(highScores).sort(([, score1], [, score2]) => score2 - score1)  
-    );
+// //sorted object
+// const sort = Object.fromEntries(
+//     Object.entries(highScores).sort(([, score1], [, score2]) => score2 - score1)  
+//     );
+
+// //to store local files
+// localStorage.setItem("userData", JSON.stringify(sort));
+// const storedData = localStorage.getItem("userData");
+// const parsedData = JSON.parse(storedData);
+
+// console.log(parsedData);
 
 // various variables for elements or classes to be selected
 const startButton = document.getElementById("start");
 const answers = document.getElementsByClassName("item");
 const goBack = document.getElementById("goBack");
 const submit = document.getElementById("submit");
+const numberOfQuestions = document.getElementsByClassName("full-question");
 
 // various listener functions
 if (startButton !== null) {
@@ -33,8 +39,6 @@ if (startButton !== null) {
         menuDisappear("menu");
         questionAppear(questionCount);
         startTimer();
-        // importData();
-
     });
 };
 
@@ -61,6 +65,7 @@ if (answers !== null) {
                 inputInitials("scoreRecord");
             } else if (answers[i].value === "false" && questionCount <= 10) {
                 time = time - 5;
+                displayTime = displayTime -5
                 console.log(time);
                 questionAppear(questionCount);
             }else {
@@ -74,7 +79,14 @@ if (submit !== null) {
     submit.addEventListener("click", function (event) {
         event.preventDefault();
         addToScoreBoard("initials");
-        // importData();
+        const sort = Object.fromEntries(
+            Object.entries(highScores).sort(([, score1], [, score2]) => score2 - score1)  
+            );
+        localStorage.setItem("userData", JSON.stringify(sort));
+        const storedData = localStorage.getItem("userData");
+        const parsedData = JSON.parse(storedData);
+        console.log(parsedData);
+        window.location.href = "./assets/scores.html";
     })
 };
 
@@ -109,6 +121,9 @@ const addToScoreBoard = (inputID) => {
 
  const outputScoreboard = (scoredboardID) => {
     const input = document.getElementById(scoredboardID);
+    const sort = Object.fromEntries(
+        Object.entries(highScores).sort(([, score1], [, score2]) => score2 - score1)  
+        );    
     for (const value in sort) {
         const node = document.createElement("li");
         const textnode = document.createTextNode(`${value} - ${sort[value]}`);
@@ -127,23 +142,14 @@ const updateTimer = () => {
     time -= 1;
     displayTime -= 1;
     console.log(time);
-    if (time <= 0){
+    if (time <= 0 || questionCount > numberOfQuestions.length){
         clearInterval(timerCountdown);
         inputInitials("scoreRecord");
-        questionDisappear(questionCount);
+        if (questionCount <= numberOfQuestions.length) {
+            questionDisappear(questionCount);
+        }
+        timer.textContent = `Time: 0 sec`;
     };
 }
-
-// const importData = () => {
-//     fetch("./scores.json")
-//         .then(response => response.json())
-//         .then(data => {
-//             const sortedData = Object.fromEntries(
-//                 Object.entries(data).sort(([, score1], [, score2]) => score2 - score1)  
-//                 );
-//             console.log(sortedData);
-//         })
-//         .catch(error => console.error("Error fetching JSON", error));
-// }
 
 //local storage
