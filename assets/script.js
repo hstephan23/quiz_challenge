@@ -86,7 +86,7 @@ if (submit !== null) {
         const storedData = localStorage.getItem("userData");
         const parsedData = JSON.parse(storedData);
         console.log(parsedData);
-        window.location.href = "./assets/scores.html";
+        //window.location.href = "./assets/scores.html";
     })
 };
 
@@ -114,9 +114,14 @@ function inputInitials(finalID) {
 //arrow functions
 const addToScoreBoard = (inputID) => {
     const input = document.getElementById(inputID).value;
-    console.log(input);
-    highScores[input] = score;
-    console.log(highScores);
+    if (input != "") {
+        console.log(input);
+        highScores[input] = score;
+        console.log(highScores);
+    } else {
+        console.log("error");
+        popUp("retry");
+    }
  };
 
  const outputScoreboard = (scoredboardID) => {
@@ -150,6 +155,11 @@ const updateTimer = () => {
         }
         timer.textContent = `Time: 0 sec`;
     };
-}
+};
+
+const popUp = (popUpID) => {
+    const showPopUp = document.getElementById(popUpID);
+    showPopUp.style.display = "inline";
+};
 
 //local storage

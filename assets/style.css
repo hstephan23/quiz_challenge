@@ -94,3 +94,9 @@ a {
 .submit:hover {
     background-color: rgb(182, 8, 182);
 }
+
+#retry {
+    z-index: 2;
+    display: none;
+    text-align: center;
+}
