@@ -125,7 +125,7 @@ const updateTimer = () => {
     time -= 1;
     console.log(time);
     if (time <= 0){
-        clearInterval(timerCountdown);
+        clearInterval(timerCountdown, 1000);
         inputInitials("scoreRecord");
         questionDisappear(questionCount);
     }
