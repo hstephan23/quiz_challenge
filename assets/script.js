@@ -1,5 +1,7 @@
+//to read and write in files
+
 //timer start amount
-let time = 100;
+let time = 5;
 let questionCount = 1;
 let score = 0;
 
@@ -28,8 +30,9 @@ if (startButton !== null) {
     startButton.addEventListener("click", function (event) {
         event.preventDefault();
         menuDisappear("menu");
-        startGame();
         questionAppear(questionCount);
+        timerCountdown();
+        importData();
     });
 };
 
@@ -69,6 +72,7 @@ if (submit !== null) {
     submit.addEventListener("click", function (event) {
         event.preventDefault();
         addToScoreBoard("initials");
+        importData();
     })
 };
 
@@ -86,10 +90,6 @@ function questionAppear(id) {
 function questionDisappear(id) {
     let disappear = document.getElementById(id);
     disappear.style.display = "none";
-};
-
-function startGame() {
-    time = 100;
 };
 
 function inputInitials(finalID) {
@@ -114,3 +114,29 @@ const addToScoreBoard = (inputID) => {
         input.appendChild(node);
     }
  }
+
+ const timerCountdown = () => {
+    setInterval(updateTimer, 1000)
+ };
+
+const updateTimer = () => {
+    const timer = document.getElementById("timer");
+    timer.textContent = `Time: ${time} sec`;
+    time -= 1;
+    console.log(time);
+    if (time <= 0){
+        clearInterval(timerCountdown);
+        inputInitials("scoreRecord");
+        questionDisappear(questionCount);
+    }
+}
+
+const importData = () => {
+    fetch("./scores.json")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.error("Error fetching JSON", error));
+}
+        
