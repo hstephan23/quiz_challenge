@@ -33,7 +33,8 @@ if (startButton !== null) {
         menuDisappear("menu");
         questionAppear(questionCount);
         startTimer();
-        importData();
+        // importData();
+
     });
 };
 
@@ -73,7 +74,7 @@ if (submit !== null) {
     submit.addEventListener("click", function (event) {
         event.preventDefault();
         addToScoreBoard("initials");
-        importData();
+        // importData();
     })
 };
 
@@ -133,15 +134,16 @@ const updateTimer = () => {
     };
 }
 
-const importData = () => {
-    fetch("./scores.json")
-        .then(response => response.json())
-        .then(data => {
-            const sortedData = Object.fromEntries(
-                Object.entries(data).sort(([, score1], [, score2]) => score2 - score1)  
-                );
-            console.log(sortedData);
-        })
-        .catch(error => console.error("Error fetching JSON", error));
-}
-        
+// const importData = () => {
+//     fetch("./scores.json")
+//         .then(response => response.json())
+//         .then(data => {
+//             const sortedData = Object.fromEntries(
+//                 Object.entries(data).sort(([, score1], [, score2]) => score2 - score1)  
+//                 );
+//             console.log(sortedData);
+//         })
+//         .catch(error => console.error("Error fetching JSON", error));
+// }
+
+//local storage
