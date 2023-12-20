@@ -115,7 +115,7 @@ const addToScoreBoard = (inputID) => {
     }
  }
 
- const timerCountdown = () => {
+let timerCountdown = () => {
     setInterval(updateTimer, 1000)
  };
 
@@ -125,7 +125,7 @@ const updateTimer = () => {
     time -= 1;
     console.log(time);
     if (time <= 0){
-        clearInterval(timerCountdown, 1000);
+        clearInterval(timerCountdown);
         inputInitials("scoreRecord");
         questionDisappear(questionCount);
     }
