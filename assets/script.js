@@ -2,6 +2,7 @@
 
 //timer start amount
 let time = 5;
+let displayTime = 4;
 let questionCount = 1;
 let score = 0;
 
@@ -31,7 +32,7 @@ if (startButton !== null) {
         event.preventDefault();
         menuDisappear("menu");
         questionAppear(questionCount);
-        timerCountdown();
+        startTimer();
         importData();
     });
 };
@@ -115,27 +116,31 @@ const addToScoreBoard = (inputID) => {
     }
  }
 
-let timerCountdown = () => {
-    setInterval(updateTimer, 1000)
+let startTimer = () => {
+    timerCountdown = setInterval(updateTimer, 1000)
  };
 
 const updateTimer = () => {
     const timer = document.getElementById("timer");
-    timer.textContent = `Time: ${time} sec`;
+    timer.textContent = `Time: ${displayTime} sec`;
     time -= 1;
+    displayTime -= 1;
     console.log(time);
     if (time <= 0){
         clearInterval(timerCountdown);
         inputInitials("scoreRecord");
         questionDisappear(questionCount);
-    }
+    };
 }
 
 const importData = () => {
     fetch("./scores.json")
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            const sortedData = Object.fromEntries(
+                Object.entries(data).sort(([, score1], [, score2]) => score2 - score1)  
+                );
+            console.log(sortedData);
         })
         .catch(error => console.error("Error fetching JSON", error));
 }
