@@ -13,17 +13,6 @@ let highScores = {"HS": 10,
     "ES": 4
 };
 
-// //sorted object
-// const sort = Object.fromEntries(
-//     Object.entries(highScores).sort(([, score1], [, score2]) => score2 - score1)  
-//     );
-
-// //to store local files
-// localStorage.setItem("userData", JSON.stringify(sort));
-// const storedData = localStorage.getItem("userData");
-// const parsedData = JSON.parse(storedData);
-
-// console.log(parsedData);
 
 // various variables for elements or classes to be selected
 const startButton = document.getElementById("start");
@@ -31,7 +20,10 @@ const answers = document.getElementsByClassName("item");
 const goBack = document.getElementById("goBack");
 const submit = document.getElementById("submit");
 const numberOfQuestions = document.getElementsByClassName("full-question");
+const scoreboard = document.getElementById("scoreboard");
+const reset = document.getElementById("reset");
 
+const scores = JSON.parse(localStorage.getItem("scores")) || [];
 // various listener functions
 if (startButton !== null) {
     startButton.addEventListener("click", function (event) {
@@ -78,17 +70,17 @@ if (answers !== null) {
 if (submit !== null) {
     submit.addEventListener("click", function (event) {
         event.preventDefault();
-        addToScoreBoard("initials");
-        const sort = Object.fromEntries(
-            Object.entries(highScores).sort(([, score1], [, score2]) => score2 - score1)  
-            );
-        localStorage.setItem("userData", JSON.stringify(sort));
-        const storedData = localStorage.getItem("userData");
-        const parsedData = JSON.parse(storedData);
-        console.log(parsedData);
-        //window.location.href = "./assets/scores.html";
+        addToScoreBoard();
+        console.log(localStorage);
     })
 };
+
+if (reset !== null) {
+    reset.addEventListener("click", function (event) {
+        event.preventDefault();
+        clearScoreboard();
+    })
+}
 
 //functions
 function menuDisappear(id) {
@@ -112,28 +104,26 @@ function inputInitials(finalID) {
 };
 
 //arrow functions
-const addToScoreBoard = (inputID) => {
-    const input = document.getElementById(inputID).value;
-    if (input != "") {
-        console.log(input);
-        highScores[input] = score;
-        console.log(highScores);
-    } else {
-        console.log("error");
-        popUp("retry");
+const addToScoreBoard = () => {
+    let initialsInput = document.getElementById("initials").value; 
+    let scoreInput = score;
+    let newScore = {
+        initials: initialsInput,
+        scoreDisplayed: scoreInput
     }
+    scores.push(newScore);
+    localStorage.setItem("scores", JSON.stringify(scores));
+    window.location.href = "./assets/scores.html";
  };
 
- const outputScoreboard = (scoredboardID) => {
-    const input = document.getElementById(scoredboardID);
-    const sort = Object.fromEntries(
-        Object.entries(highScores).sort(([, score1], [, score2]) => score2 - score1)  
-        );    
-    for (const value in sort) {
+ const outputScoreboard = () => {   
+    scores.sort((a, b) => b.scoreDisplayed - a.scoreDisplayed);
+    for (const value in scores) {
         const node = document.createElement("li");
-        const textnode = document.createTextNode(`${value} - ${sort[value]}`);
+        const textnode = document.createTextNode(`${scores[value]["scoreDisplayed"]} - ${scores[value]["initials"]}`);
         node.appendChild(textnode);
-        input.appendChild(node);
+        scoreboard.append(node);
+        console.log(textnode);
     }
  }
 
@@ -162,4 +152,13 @@ const popUp = (popUpID) => {
     showPopUp.style.display = "inline";
 };
 
-//local storage
+const clearScoreboard = () => {
+    scoreboard.textContent = "";
+    localStorage.clear();
+}
+
+const displayScores = () => {
+    scores.forEach(score => {
+        addScoreToScoreboard(score);
+    })
+}
